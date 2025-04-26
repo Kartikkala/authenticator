@@ -5,9 +5,7 @@ import com.kartik.authentication.interfaces.AuthenticationStratergy;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class Authenticator implements HandlerInterceptor{
                         }
                     }
                 }
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication stratergies ended. No challege passed!");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication strategies ended. No challenge passed!");
                 return false;
             }
         }

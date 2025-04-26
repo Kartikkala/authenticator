@@ -24,8 +24,6 @@ public class Login implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
-        System.out.println("Login prehandler");
-        System.out.println(request.getRequestURI());
         if(handler instanceof HandlerMethod handlerMethod)
         {
             if(handlerMethod.hasMethodAnnotation(LogIn.class)){
