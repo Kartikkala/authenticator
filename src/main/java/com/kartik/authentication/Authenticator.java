@@ -27,12 +27,7 @@ public class Authenticator implements HandlerInterceptor{
                 {
                     if(s.supports(request))
                     {
-                        if(s.authenticate(request, response)){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
+                        return s.authenticate(request, response);
                     }
                 }
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication strategies ended. No challenge passed!");

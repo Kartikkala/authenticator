@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class Login implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception
     {
         if(handler instanceof HandlerMethod handlerMethod)
         {
@@ -35,14 +36,17 @@ public class Login implements HandlerInterceptor {
                 {
                     if(Objects.equals(s.getName(), strategyName))
                     {
-                        return s.login(request, response);
+                        if(s.login(request, response))
+                        {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            return;
+                        }
+                        return;
                     }
                 }
-                // Throw some error here
-                return false;
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
-        return true;
     }
 
 
